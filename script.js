@@ -1,35 +1,29 @@
-const BACKEND_URL = "https://ai-pembukuan-backend.up.railway.app";  // Ganti dengan URL backend
+const BASE_URL = "https://ai-pembukuan-backend.up.railway.app"; // Ganti dengan URL backend yang benar
 
-// Fungsi Login
-function login() {
-    let email = document.getElementById("email").value;
-    let password = document.getElementById("password").value;
+async function register() {
+    const email = document.getElementById("email_reg").value;
+    const password = document.getElementById("password_reg").value;
 
-    fetch(`${BACKEND_URL}/login`, {
+    const response = await fetch(`${BASE_URL}/register`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ email, password })
-    })
-    .then(response => response.text())
-    .then(data => {
-        document.getElementById("loginResult").innerText = data;
-    })
-    .catch(error => console.error("Error:", error));
+    });
+
+    const data = await response.json();
+    alert(data.message);
 }
 
-// Fungsi Registrasi
-function register() {
-    let email = document.getElementById("regEmail").value;
-    let password = document.getElementById("regPassword").value;
+async function login() {
+    const email = document.getElementById("email_login").value;
+    const password = document.getElementById("password_login").value;
 
-    fetch(`${BACKEND_URL}/register`, {
+    const response = await fetch(`${BASE_URL}/login`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ email, password })
-    })
-    .then(response => response.text())
-    .then(data => {
-        document.getElementById("registerResult").innerText = data;
-    })
-    .catch(error => console.error("Error:", error));
+    });
+
+    const data = await response.json();
+    alert(data.message);
 }
